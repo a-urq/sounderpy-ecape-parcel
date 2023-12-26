@@ -36,6 +36,23 @@ from siphon.simplewebservice.iastate import IAStateUpperAir
 from siphon.simplewebservice.igra2 import IGRAUpperAir
 #########################################################################################################
 
+### AMELIA-DEV -- import ecape-parcel
+import ecape_parcel
+
+# Note for Kyle:
+# I kept this in the same folder as sounderpy.py since I don't know Python well and this
+# keeps the ECAPE parcel working on my machine. I've uploaded ecape_parcel to PyPI at
+# https://pypi.org/project/ecape-parcel/
+#
+# I'm also not sure whether the levels in the SounderPy pressure array are the same
+# as the levels in the height array and the temperature/dewpoint arrays. If they're
+# not, the ecape_parcel code won't work quite correctly.
+#
+# I've only gotten it working with RAP_13km_anl_old data so far. Data from 
+# RAP_13km_anl crashes the code and I'm not sure why.
+#
+# I accidentally named the function the same thing as the module, so all calls to calculate
+# parcel paths will need to be ecape_parcel.ecape_parcel(...)
 
 
 
@@ -1438,6 +1455,12 @@ def __metpy_sounding(clean_data):
     mlcape, mlcin = mpcalc.cape_cin(p, T, Td, ml_prof, which_lfc='bottom', which_el='top')
     mucape, mucin = mpcalc.cape_cin(p, T, Td, mu_prof, which_lfc='bottom', which_el='top')
     sbcape, sbcin = mpcalc.cape_cin(p, T, Td, sb_prof, which_lfc='bottom', which_el='top')
+
+    ### AMELIA-DEV -- compute MU-ECAPE parcel profile
+    _, _, muecape_prof, _ = ecape_parcel.ecape_parcel(p, z, T, Td, u, v, True)
+    # print("### AMELIA-DEV ###")
+    # print(muecape_prof)
+    # print("above is muecape_prof")
     
     try: 
         q = mpcalc.specific_humidity_from_dewpoint(p, Td)
@@ -1475,6 +1498,11 @@ def __metpy_sounding(clean_data):
         # Shade areas of CAPE and CIN
         skew.shade_cin(p, T, sb_prof, Td, alpha=0.2, label='SBCIN')
         skew.shade_cape(p, T, sb_prof, alpha=0.2, label='SBCAPE')
+
+    ### AMELIA-DEV -- plot ECAPE parcel when 
+    # print("AMELIA-DEV p printout:", p)
+    if ecape > 10:
+        skew.plot(p, muecape_prof, 'red', linewidth=2, ls='--', alpha=0.6, label='MU-E PARCEL PATH')
 
     # plot ML-trace when MLCAPE > 10
     if mlcape.m > 10:
