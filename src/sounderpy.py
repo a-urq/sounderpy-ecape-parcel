@@ -40,11 +40,9 @@ from siphon.simplewebservice.igra2 import IGRAUpperAir
 import ecape_parcel
 
 # Note for Kyle:
-# I kept this in the same folder as sounderpy.py since I don't know Python well and this
-# keeps the ECAPE parcel working on my machine. I've uploaded ecape_parcel to PyPI at
-# https://pypi.org/project/ecape-parcel/
+# I've uploaded ecape_parcel to PyPI at https://pypi.org/project/ecape-parcel/
 #
-# I'm also not sure whether the levels in the SounderPy pressure array are the same
+# I'm not sure whether the levels in the SounderPy pressure array are the same
 # as the levels in the height array and the temperature/dewpoint arrays. If they're
 # not, the ecape_parcel code won't work quite correctly.
 #
