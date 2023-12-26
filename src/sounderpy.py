@@ -37,7 +37,7 @@ from siphon.simplewebservice.igra2 import IGRAUpperAir
 #########################################################################################################
 
 ### AMELIA-DEV -- import ecape-parcel
-import ecape_parcel
+from ecape_parcel_local import calc_ecape_parcel # it REALLY doesn't like the file from PyPI and i'm letting that be a tomorrow issue
 
 # Note for Kyle:
 # I've uploaded ecape_parcel to PyPI at https://pypi.org/project/ecape-parcel/
@@ -1455,7 +1455,7 @@ def __metpy_sounding(clean_data):
     sbcape, sbcin = mpcalc.cape_cin(p, T, Td, sb_prof, which_lfc='bottom', which_el='top')
 
     ### AMELIA-DEV -- compute MU-ECAPE parcel profile
-    _, _, muecape_prof, _ = ecape_parcel.ecape_parcel(p, z, T, Td, u, v, True)
+    _, _, muecape_prof, _ = calc_ecape_parcel(p, z, T, Td, u, v, True)
     # print("### AMELIA-DEV ###")
     # print(muecape_prof)
     # print("above is muecape_prof")
