@@ -1,5 +1,5 @@
 import sounderpy as spy
-from ecape_parcel_local import calc_ecape_parcel
+from ecape_parcel.calc import calc_ecape_parcel
 
 # This file uses real-world meteorological data as a test for the ECAPE parcel code. 
 # May be removed from repository later on if any circular dependency issues come up

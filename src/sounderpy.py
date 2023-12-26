@@ -37,7 +37,7 @@ from siphon.simplewebservice.igra2 import IGRAUpperAir
 #########################################################################################################
 
 ### AMELIA-DEV -- import ecape-parcel
-from ecape_parcel_local import calc_ecape_parcel # it REALLY doesn't like the file from PyPI and i'm letting that be a tomorrow issue
+from ecape_parcel.calc import calc_ecape_parcel
 
 # Note for Kyle:
 # I've uploaded ecape_parcel to PyPI at https://pypi.org/project/ecape-parcel/
